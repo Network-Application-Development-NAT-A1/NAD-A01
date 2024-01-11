@@ -4,6 +4,8 @@
 	Author: Glenn Fiedler <gaffer@gaffer.org>
 */
 
+#pragma warning(disable : 4996)
+#pragma warning(suppress : 4996)
 #include <iostream>
 #include <fstream>
 #include <string>
