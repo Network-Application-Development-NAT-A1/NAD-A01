@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Reliability and Flow Control Example
 	From "Networking for Game Programmers" - http://www.gaffer.org/networking-for-game-programmers
 	Author: Glenn Fiedler <gaffer@gaffer.org>
@@ -25,6 +25,9 @@ const float DeltaTime = 1.0f / 30.0f;
 const float SendRate = 1.0f / 30.0f;
 const float TimeOut = 10.0f;
 const int PacketSize = 256;
+
+
+
 
 class FlowControl
 {
@@ -133,6 +136,7 @@ int main(int argc, char* argv[])
 
 	if (argc >= 2)
 	{
+		//매개변수가 "__.__.__.__" 형식으로 존재하면 그것을 읽어서 모드를 Client로 만들어버림. 
 		int a, b, c, d;
 		if (sscanf(argv[1], "%d.%d.%d.%d", &a, &b, &c, &d))
 		{
@@ -206,16 +210,29 @@ int main(int argc, char* argv[])
 
 		while (sendAccumulator > 1.0f / sendRate)
 		{
+			int count = 1;
 			unsigned char packet[PacketSize];
+
+			//교수님이 이렇게 수정해서 packet 내용 주입하라고 하셨음(수정요망)
+			
+			strcat((char*)packet[0], (char *)"Hello World");
+			strcat((char*)packet[1], (char*)count);
+
+
+			//Packet initialize for using memset 
 			memset(packet, 0, sizeof(packet));
 			connection.SendPacket(packet, sizeof(packet));
 			sendAccumulator -= 1.0f / sendRate;
+			count++;
 		}
 
 		while (true)
 		{
 			unsigned char packet[256];
 			int bytes_read = connection.ReceivePacket(packet, sizeof(packet));
+			//다른 학생이 이 부분에다가 printf로 Output 보여줄 수 있다고 했음. (수정요망)
+			printf("Output of packet %s\n",packet);
+			
 			if (bytes_read == 0)
 				break;
 		}

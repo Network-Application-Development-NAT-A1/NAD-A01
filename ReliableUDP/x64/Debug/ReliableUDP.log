@@ -1,0 +1,6 @@
+﻿  ReliableUDP.cpp
+C:\MyFiles\Level 4\Network Application\Lab1\ReliableUDP\ReliableUDP\Net.h(195,21): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
+C:\MyFiles\Level 4\Network Application\Lab1\ReliableUDP\ReliableUDP\Net.h(915,29): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+C:\MyFiles\Level 4\Network Application\Lab1\ReliableUDP\ReliableUDP\Net.h(916,30): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+C:\MyFiles\Level 4\Network Application\Lab1\ReliableUDP\ReliableUDP\ReliableUDP.cpp(218,29): warning C4312: 'type cast': conversion from 'int' to 'char *' of greater size
+  ReliableUDP.vcxproj -> C:\MyFiles\Level 4\Network Application\Lab1\ReliableUDP\x64\Debug\ReliableUDP.exe
