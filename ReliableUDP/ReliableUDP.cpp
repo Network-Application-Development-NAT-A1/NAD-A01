@@ -207,20 +207,25 @@ int main(int argc, char* argv[])
 		// send and receive packets
 
 		sendAccumulator += DeltaTime;
+		unsigned char str[] = "Hello World ";
+		size_t strSize = sizeof(str) - 1;
+		unsigned int count = 0;
 
 		while (sendAccumulator > 1.0f / sendRate)
 		{
-			int count = 1;
 			unsigned char packet[PacketSize];
-
-			//교수님이 이렇게 수정해서 packet 내용 주입하라고 하셨음(수정요망)
-			
-			strcat((char*)packet[0], (char *)"Hello World");
-			strcat((char*)packet[1], (char*)count);
-
-
-			//Packet initialize for using memset 
 			memset(packet, 0, sizeof(packet));
+
+			// Copy the hello string to the packet.
+			if (strSize < PacketSize)
+			{
+				memcpy(packet, str, strSize);
+			}
+
+			// [client action]
+			// TO DO 1: Need to implement logic to read files from disk.
+			// TO DO 2: Add file metadata to the packet here.
+			// TO DO 3: Break the file into parts and send each part here.
 			connection.SendPacket(packet, sizeof(packet));
 			sendAccumulator -= 1.0f / sendRate;
 			count++;
@@ -230,11 +235,15 @@ int main(int argc, char* argv[])
 		{
 			unsigned char packet[256];
 			int bytes_read = connection.ReceivePacket(packet, sizeof(packet));
-			//다른 학생이 이 부분에다가 printf로 Output 보여줄 수 있다고 했음. (수정요망)
-			printf("Output of packet %s\n",packet);
-			
+
 			if (bytes_read == 0)
 				break;
+
+			// [server action]
+			// TO DO 1: Extract file metadata from received packets.
+			// TO DO 2: Process the received file part here and save it to disk.
+			// TO DO 3: Validate that the entire file was received and verify file integrity here.
+			printf("%s", packet);
 		}
 
 		// show packets that were acked this frame

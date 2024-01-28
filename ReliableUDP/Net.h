@@ -16,6 +16,7 @@
 #define PLATFORM_WINDOWS  1
 #define PLATFORM_MAC      2
 #define PLATFORM_UNIX     3
+#define PacketSizeHack	  256 + 128
 
 #if defined(_WIN32)
 #define PLATFORM PLATFORM_WINDOWS
@@ -51,7 +52,7 @@
 #include <functional>
 
 
-const int PacketSizeHack = 128+256;
+
 
 
 namespace net
