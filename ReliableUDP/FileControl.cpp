@@ -39,3 +39,23 @@ void SaveFile(const string& filename, string& data)
     file << data; // Write string data to a file.
     file.close();
 }
+
+// VerifyFileContent function: 
+// Verifies that the contents of the specified file match the given string.
+bool VerifyFileContent(string filename, string expectedContent)
+{
+    string fileContent;
+    LoadFile(filename, fileContent);
+    // Compare what it read with what it expect
+    return fileContent == expectedContent;
+}
+
+// TestFileValidation function: 
+// Tests the ability to save and load files.
+bool TestFileValidation(string filename, string testData)
+{
+    SaveFile(filename, testData); // Saving test data to a file
+    string loadedData;
+    LoadFile(filename, loadedData);
+    return loadedData == testData; // Verify that the loaded data matches the source
+}

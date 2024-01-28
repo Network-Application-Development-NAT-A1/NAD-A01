@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileControl.cpp" />
     <ClCompile Include="ReliableUDP.cpp" />
   </ItemGroup>
   <ItemGroup>

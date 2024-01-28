@@ -18,6 +18,9 @@
     <ClCompile Include="ReliableUDP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Net.h">
