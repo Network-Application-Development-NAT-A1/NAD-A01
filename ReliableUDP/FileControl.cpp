@@ -4,8 +4,7 @@
 
 using namespace std;
 
-// LoadFile function: Reads a file with the specified filename 
-// and returns it as a string.
+// LoadFile function: Reads a file with the specified filename and returns it as a string.
 void LoadFile(const string& filename, string& data)
 {
     ifstream file(filename);
@@ -24,5 +23,19 @@ void LoadFile(const string& filename, string& data)
         data += line + "\n";
     }
 
+    file.close();
+}
+
+// SaveFile function: Saves the string data to a file with the specified filename.
+void SaveFile(const string& filename, string& data)
+{
+    ofstream file(filename);
+    if (!file)
+    {
+        cout << "Unable to open file for writing: " << filename << endl;
+        return;
+    }
+
+    file << data; // Write string data to a file.
     file.close();
 }
