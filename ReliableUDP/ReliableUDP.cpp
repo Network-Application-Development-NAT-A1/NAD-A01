@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 
 	if (argc >= 2)
 	{
-		//매개변수가 "__.__.__.__" 형식으로 존재하면 그것을 읽어서 모드를 Client로 만들어버림. 
+		//TO DO 1: Add additional argument handling logic
 		int a, b, c, d;
 		if (sscanf(argv[1], "%d.%d.%d.%d", &a, &b, &c, &d))
 		{
