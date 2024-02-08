@@ -10,7 +10,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-
 #include "Net.h"
 
 //#define SHOW_ACKS
@@ -24,7 +23,7 @@ const int ProtocolId = 0x11223344;
 const float DeltaTime = 1.0f / 30.0f;
 const float SendRate = 1.0f / 30.0f;
 const float TimeOut = 10.0f;
-const int PacketSize = 256;
+const int PacketSize = 256;//Edit Please::::: Assume a constant 900 to transfer the MetaData file structure.
 
 
 
@@ -133,15 +132,22 @@ int main(int argc, char* argv[])
 
 	Mode mode = Server;
 	Address address;
+	FileMetaData metaData;			//Client 1: Initialize of Struct of Metadata
 
-	if (argc >= 2)
+	if (argc >= 5)
 	{
 		//TO DO 1: Add additional argument handling logic
 		int a, b, c, d;
-		if (sscanf(argv[1], "%d.%d.%d.%d", &a, &b, &c, &d))
+		if (sscanf(argv[1], "%d.%d.%d.%d", &a, &b, &c, &d))//Client 1: Get 4 Parameters from user: Ip address, File name, file size, file format
 		{
+			//Client1: Ip Address of 4 Parameters 
 			mode = Client;
 			address = Address(a, b, c, d, ServerPort);
+			
+			//Client 1:Enter filename, filesize, fileformat as user's parameters.
+			strncpy(metaData.fileName, argv[2], FILENAME_MAX);   
+			metaData.fileSize = atoi(argv[3]);                  
+			strncpy(metaData.fileFormat, argv[4], FORMAT_MAX);  
 		}
 	}
 
@@ -204,8 +210,13 @@ int main(int argc, char* argv[])
 			break;
 		}
 
-		// send and receive packets
 
+		//Client1: Edit Please:::::Verifying that the server has received the correct input of filename, filesize, fileformat. Server-side correction request.
+		//							1. Instead of str[] (Hello World), print the contents of fileName, fileSize, and fileFormat, which are the contents of the metaData structure sent by the client to the server.
+		// 
+		// 
+
+		// send and receive packets
 		sendAccumulator += DeltaTime;
 		unsigned char str[] = "Hello World ";
 		size_t strSize = sizeof(str) - 1;
@@ -216,10 +227,11 @@ int main(int argc, char* argv[])
 			unsigned char packet[PacketSize];
 			memset(packet, 0, sizeof(packet));
 
-			// Copy the hello string to the packet.
-			if (strSize < PacketSize)
+			// Edit Please::::::Copy the metaData to the packet.
+			size_t metaDataSize = sizeof(FileMetaData);
+			if (metaDataSize <= PacketSize)
 			{
-				memcpy(packet, str, strSize);
+				memcpy(packet, &metaData, metaDataSize);
 			}
 
 			// [client action]
@@ -231,9 +243,10 @@ int main(int argc, char* argv[])
 			count++;
 		}
 
+		//// Packet receiving logic on the server side
 		while (true)
 		{
-			unsigned char packet[256];
+			unsigned char packet[PacketSize];//Client1: Edit the packet Size
 			int bytes_read = connection.ReceivePacket(packet, sizeof(packet));
 
 			if (bytes_read == 0)
@@ -243,7 +256,13 @@ int main(int argc, char* argv[])
 			// TO DO 1: Extract file metadata from received packets.
 			// TO DO 2: Process the received file part here and save it to disk.
 			// TO DO 3: Validate that the entire file was received and verify file integrity here.
-			printf("%s", packet);
+
+			// Edit Please::::: Client 1 : Extracting metadata from packets
+			FileMetaData* receivedMetaData = reinterpret_cast<FileMetaData*>(packet);
+			// Edit Please:::: Client1: Extracted metadata output
+			printf("Received fileName: %s\n", receivedMetaData->fileName);
+			printf("Received fileSize: %d\n", receivedMetaData->fileSize);
+			printf("Received fileFormat: %s\n", receivedMetaData->fileFormat);
 		}
 
 		// show packets that were acked this frame
