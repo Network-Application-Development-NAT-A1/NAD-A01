@@ -11,6 +11,9 @@
 #include <string>
 #include <vector>
 #include "Net.h"
+#include <fstream>
+#include <filesystem>
+#include <cstdio> 
 
 //#define SHOW_ACKS
 
@@ -26,6 +29,19 @@ const float TimeOut = 10.0f;
 const int PacketSize = 256;//Edit Please::::: Assume a constant 900 to transfer the MetaData file structure.
 
 
+
+
+// Function to check if a file exists
+bool fileExists(const std::string& filePath) {
+	std::FILE* file = std::fopen(filePath.c_str(), "r");
+	if (file) {
+		std::fclose(file);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 
 class FlowControl
@@ -309,9 +325,29 @@ int main(int argc, char* argv[])
 			// Edit Please::::: Client 1 : Extracting metadata from packets
 			FileMetaData* receivedMetaData = reinterpret_cast<FileMetaData*>(packet);
 			// Edit Please:::: Client1: Extracted metadata output
-			printf("Received fileName: %s\n", receivedMetaData->fileName);
+			/*printf("Received ashi: %s\n", receivedMetaData->fileName);
 			printf("Received fileSize: %d\n", receivedMetaData->fileSize);
-			printf("Received fileFormat: %s\n", receivedMetaData->fileFormat);
+			printf("Received fileFormat: %s\n", receivedMetaData->fileFormat);*/
+
+			string filePath = std::string(metaData.fileName) + "." + metaData.fileFormat;
+
+			// Check if the file exists
+			if (!fileExists(filePath)) {
+				// If the file doesn't exist, create and write packets to it
+				std::ofstream outFile(filePath);
+				outFile << "packet";
+				outFile.close();
+			}
+			else {
+				// If the file exists, open and append packets to it
+				std::ofstream outFile(filePath, std::ios_base::app);
+				outFile << "packet";
+				outFile.close();
+			}
+
+			// Send ACK back to client
+			const char* ackMessage = "ACK";
+			connection.SendPacket(reinterpret_cast<const unsigned char*>(ackMessage), strlen(ackMessage));
 		}
 
 		// show packets that were acked this frame

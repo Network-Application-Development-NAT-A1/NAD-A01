@@ -1,7 +1,9 @@
 ﻿  ReliableUDP.cpp
-C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(206,21): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
-C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(926,29): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(927,30): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\ReliableUDP.cpp(140,68): warning C4244: 'argument': conversion from 'std::streamsize' to 'int', possible loss of data
-C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\ReliableUDP.cpp(155,19): warning C4244: 'return': conversion from 'std::streamoff' to 'long', possible loss of data
-LINK : fatal error LNK1168: cannot open C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\x64\Debug\ReliableUDP.exe for writing
+D:\NAD\NAD-A01\ReliableUDP\Net.h(206,21): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
+D:\NAD\NAD-A01\ReliableUDP\Net.h(926,29): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+D:\NAD\NAD-A01\ReliableUDP\Net.h(927,30): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\filesystem(13): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
+D:\NAD\NAD-A01\ReliableUDP\ReliableUDP.cpp(156,68): warning C4244: 'argument': conversion from 'std::streamsize' to 'int', possible loss of data
+D:\NAD\NAD-A01\ReliableUDP\ReliableUDP.cpp(171,19): warning C4244: 'return': conversion from 'std::streamoff' to 'long', possible loss of data
+D:\NAD\NAD-A01\ReliableUDP\ReliableUDP.cpp(350,84): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  ReliableUDP.vcxproj -> D:\NAD\NAD-A01\x64\Debug\ReliableUDP.exe
