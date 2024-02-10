@@ -329,7 +329,7 @@ int main(int argc, char* argv[])
 			printf("Received fileSize: %d\n", receivedMetaData->fileSize);
 			printf("Received fileFormat: %s\n", receivedMetaData->fileFormat);*/
 
-			string filePath = std::string(metaData.fileName) + "." + metaData.fileFormat;
+			string filePath = std::string(metaData.fileName);
 
 			// Check if the file exists
 			if (!fileExists(filePath)) {
