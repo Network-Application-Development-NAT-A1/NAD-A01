@@ -118,6 +118,54 @@ private:
 	float penalty_reduction_accumulator;
 };
 
+//Client2: To send file content to the server
+//SendFileContents
+//It is a function used when the client sends metaData (file name file size file format) to the server and then sends the contents of the file.
+void SendFileContents(const char* filename, ReliableConnection& connection)
+{
+	ifstream file(filename, ios::binary);
+	if (!file)
+	{
+		cout << "Unable to open file: " << filename << endl;
+		return;
+	}
+
+	char buffer[PacketSize];
+	while (!file.eof())
+	{
+		file.read(buffer, PacketSize);
+		streamsize bytes_read = file.gcount();
+		if (bytes_read > 0)
+		{
+			connection.SendPacket(reinterpret_cast<unsigned char*>(buffer), bytes_read);
+		}
+	}
+
+	file.close();
+}
+
+//Client2:
+//Functions that measure file size.
+long getFileSize(const string& filename) {
+	ifstream file(filename, ios::binary | ios::ate); // 파일을 바이너리 모드로 열고, 포인터를 끝으로 이동
+	if (!file) {
+		cerr << "Unable to open file: " << filename << endl;
+		return -100; // 파일을 열 수 없는 경우 -100 반환
+	}
+	return file.tellg(); // 파일 포인터의 현재 위치 반환
+}
+
+//Client2
+//Functions that get the file extension from fileName(Client Parameters)
+std::string getFileExtension(const std::string& fileName) {
+	std::size_t dotPos = fileName.rfind('.');
+	if (dotPos != std::string::npos) {
+		return fileName.substr(dotPos + 1);
+	}
+	return "";
+}
+
+
 // ----------------------------------------------
 
 int main(int argc, char* argv[])
@@ -134,7 +182,7 @@ int main(int argc, char* argv[])
 	Address address;
 	FileMetaData metaData;			//Client 1: Initialize of Struct of Metadata
 
-	if (argc >= 5)
+	if (argc >= 3)
 	{
 		//TO DO 1: Add additional argument handling logic
 		int a, b, c, d;
@@ -146,8 +194,9 @@ int main(int argc, char* argv[])
 			
 			//Client 1:Enter filename, filesize, fileformat as user's parameters.
 			strncpy(metaData.fileName, argv[2], FILENAME_MAX);   
-			metaData.fileSize = atoi(argv[3]);                  
-			strncpy(metaData.fileFormat, argv[4], FORMAT_MAX);  
+			metaData.fileSize = getFileSize(metaData.fileName);//Client 2: The file size is measured and stored based on the file name through the getFileSize function.
+			std::string fileFormat = getFileExtension(argv[2]);  //Client2: the file format is measured by getFileExtension functions and 
+			strncpy(metaData.fileFormat, fileFormat.c_str(), FORMAT_MAX);
 		}
 	}
 

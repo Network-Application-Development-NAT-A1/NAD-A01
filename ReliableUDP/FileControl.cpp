@@ -2,7 +2,11 @@
 #include <fstream>
 #include <string>
 
+
+
 using namespace std;
+
+
 
 // LoadFile function: Reads a file with the specified filename and returns it as a string.
 void LoadFile(const string& filename, string& data)

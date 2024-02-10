@@ -79,7 +79,7 @@ namespace net
 	//Client 1: Get 4 Parameters from user: Ip address, File name, file size, file format: Set a Struct for Parameters
 	typedef struct FileMetaData {
 		char fileName[NAME_MAX]; // file name
-		int fileSize;                // file Size
+		long fileSize;                // file Size
 		char fileFormat[FORMAT_MAX]; // file Format
 	} FileMetaData;
 

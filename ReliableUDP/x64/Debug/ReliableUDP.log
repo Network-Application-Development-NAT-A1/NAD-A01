@@ -2,4 +2,6 @@
 C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(206,21): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
 C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(926,29): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
 C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\Net.h(927,30): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\ReliableUDP.cpp(140,68): warning C4244: 'argument': conversion from 'std::streamsize' to 'int', possible loss of data
+C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\ReliableUDP\ReliableUDP.cpp(155,19): warning C4244: 'return': conversion from 'std::streamoff' to 'long', possible loss of data
 LINK : fatal error LNK1168: cannot open C:\MyFiles\Level 4\Network Application\Lab\A01 Fundamental\ReliableUDP\ReliableUDP\x64\Debug\ReliableUDP.exe for writing
